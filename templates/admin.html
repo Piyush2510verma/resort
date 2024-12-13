@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin Panel</title>
+</head>
+<body>
+    <h1>Reservations</h1>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Guest Name</th>
+            <th>Phone</th>
+            <th>Check-in Date</th>
+            <th>Check-out Date</th>
+            <th>Room</th>
+        </tr>
+        {% for res in reservations %}
+        <tr>
+            <td>{{ res[0] }}</td>
+            <td>{{ res[1] }}</td>
+            <td>{{ res[2] }}</td>
+            <td>{{ res[3] }}</td>
+            <td>{{ res[4] }}</td>
+            <td>{{ res[5] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Book a Room (Walk-in)</h2>
+    <form action="/admin/book" method="POST">
+        <label>Name:</label><br>
+        <input type="text" name="guest_name" required><br>
+        <label>Phone:</label><br>
+        <input type="text" name="phone" required><br>
+        <label>Check-in Date:</label><br>
+        <input type="date" name="check_in_date" required><br>
+        <label>Check-out Date:</label><br>
+        <input type="date" name="check_out_date" required><br>
+        <label>Room:</label><br>
+        <select name="room_number" required>
+            {% for room in rooms %}
+            <option value="{{ room[0] }}">{{ room[0] }}</option>
+            {% endfor %}
+        </select><br><br>
+        <button type="submit">Book</button>
+    </form>
+</body>
+</html>

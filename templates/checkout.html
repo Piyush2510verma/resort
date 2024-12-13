@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Checkout</h1>
+    <form action="/generate-bill" method="POST">
+        <label for="reservation_id">Select Reservation:</label>
+        <select id="reservation_id" name="reservation_id" required>
+            {% for reservation in reservations %}
+                <option value="{{ reservation[0] }}">
+                    {{ reservation[1] }} - Room {{ reservation[3] }}
+                </option>
+            {% endfor %}
+        </select><br>
+
+        <label for="room_price">Room Price:</label>
+        <input type="number" id="room_price" name="room_price" step="0.01" required><br>
+
+        <label for="food_charge">Food Charge:</label>
+        <input type="number" id="food_charge" name="food_charge" step="0.01" required><br>
+
+        <label for="activities_charge">Activities Charge:</label>
+        <input type="number" id="activities_charge" name="activities_charge" step="0.01" required><br>
+
+        <button type="submit">Generate Bill</button>
+    </form>
+
+    <br>
+    <a href="/">Back to Menu</a>
+</body>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Housekeeping Supplies</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Housekeeping Supplies Tracking</h1>
+
+    <!-- Display current supplies -->
+    <h2>Current Supplies</h2>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Item ID</th>
+                <th>Item Name</th>
+                <th>Quantity</th>
+                <th>Update Quantity</th>
+                <th>Delete Item</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supply in supplies %}
+            <tr>
+                <td>{{ supply[0] }}</td>
+                <td>{{ supply[1] }}</td>
+                <td>{{ supply[2] }}</td>
+                <td>
+                    <form action="/update-supply/{{ supply[0] }}" method="POST">
+                        <input type="number" name="quantity" value="{{ supply[2] }}" required>
+                        <button type="submit">Update</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/delete-supply/{{ supply[0] }}" method="POST">
+                        <button type="submit">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Form to add new supplies -->
+    <h2>Add New Supply</h2>
+    <form action="/add-supply" method="POST">
+        <label for="item_name">Item Name:</label>
+        <input type="text" id="item_name" name="item_name" required><br>
+
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" required><br>
+
+        <button type="submit">Add Supply</button>
+    </form>
+
+    <br>
+    <a href="/">Back to Menu</a>
+</body>
+</html>
